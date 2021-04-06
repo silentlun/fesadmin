@@ -23,7 +23,7 @@ class m201218_073204_contest extends Migration
             'num' => $this->string(15)->notNull()->defaultValue(''),
             'title' => $this->string()->notNull()->defaultValue(''),
             'type_id' => $this->tinyInteger()->unsigned()->notNull()->defaultValue(0),
-            'user_id' => $this->tinyInteger()->unsigned()->notNull()->defaultValue(0),
+            'user_id' => $this->integer()->unsigned()->notNull()->defaultValue(0),
             'student' => $this->string(100)->notNull()->defaultValue(''),
             'teacher' => $this->string(100)->notNull()->defaultValue(''),
             'file' => $this->string()->notNull()->defaultValue(''),

@@ -102,7 +102,7 @@ $(function() {
 		layer.closeAll('loading');
 	})
 	//多选后处理
-	$(".multi-operate").click(function (e) {
+	$(document).on('click','.multi-operate',function(e){
 	    e.preventDefault();
 		var that = $(this);
 	    var url = $(this).attr('href');
@@ -146,7 +146,7 @@ $(function() {
 	    layer.load(2);
 	})
 	//排序
-	$('.toolbar-btn-action').on('click','.listorder',function(event){
+	$(document).on('click','.listorder',function(event){
 		event.preventDefault();
 		var that = $(this);
 		var url = $(this).attr('href');
@@ -182,27 +182,28 @@ $(function() {
 		});
 		return false;
 	});
-	$('.toolbar-btn-action').on('click','.verify',function(event){
-		event.preventDefault();
-		var url = $(this).attr('href');
-		var ids = [];
-		$(container+" input[name='selection[]']:checked").each(function(){
-		    ids.push($(this).val());
-		});
-		if(ids.length <= 0){
-		    parent.layer.alert('未选中任何数据！', {icon: 2})
-		    return false;
-		}
-		var param = ids.join(",");
-		url = url.indexOf('?') !== -1 ? url + '&ids=' + param : url + '?ids' + param;
-		$('#ajaxModal').modal({
-			backdrop: 'static',
-			keyboard: false,
-			remote: url,
-		});
-		return false;
-		
-	});
+	//批量审核
+	$(document).on('click','.multi-verify',function(e){
+	    event.preventDefault();
+	    var url = $(this).attr('href');
+	    var ids = [];
+	    $(container+" input[name='selection[]']:checked").each(function(){
+	        ids.push($(this).val());
+	    });
+	    if(ids.length <= 0){
+	        parent.layer.alert('未选中任何数据！', {icon: 2})
+	        return false;
+	    }
+	    var param = ids.join(",");
+	    url = url.indexOf('?') !== -1 ? url + '&ids=' + param : url + '?ids=' + param;
+	    $('#ajaxModal').modal({
+	    	backdrop: 'static',
+	    	keyboard: false,
+	    	remote: url,
+	    });
+	    return false;
+	})
+	
 	$('.datetime-picker').datetimepicker({
 		language:'zh-CN',
 	    format: 'yyyy-mm-dd hh:ii',

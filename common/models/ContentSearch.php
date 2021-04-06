@@ -47,7 +47,7 @@ class ContentSearch extends Content
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 20,
+                'pageSize' => 1,
             ],
         ]);
 

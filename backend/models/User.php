@@ -43,9 +43,6 @@ class User extends \common\models\User
             ['password', 'required', 'on' => self::SCENARIO_CREATE],
             ['password', 'string', 'min' => 6],
             
-            ['fullname', 'trim'],
-            ['fullname', 'required'],
-            ['fullname', 'string', 'min' => 2, 'max' => 20],
             
             [['role_id', 'sex'], 'required'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
@@ -70,7 +67,7 @@ class User extends \common\models\User
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
+            'id' => 'ID',
             'username' => '姓名',
             'password' => Yii::t('app', 'Password'),
             'email' => Yii::t('app', 'Email'),

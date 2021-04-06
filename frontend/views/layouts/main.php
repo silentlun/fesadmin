@@ -7,12 +7,11 @@ use yii\helpers\Html;
 use frontend\assets\AppAsset;
 use yii\helpers\Url;
 use common\models\Link;
-use common\models\Message;
+
 
 AppAsset::register($this);
 $this->title = $this->title ? $this->title.' - ' : '';
-$session = Yii::$app->session;
-$session->remove('messageCount');
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -46,8 +45,7 @@ $session->remove('messageCount');
       <a class="btn btn-outline-info btn-sm my-2 my-sm-0 px-3" href="<?= Url::toRoute(['site/signup']) ?>"> 注册 </a>
 	</div>
 	<?php else:
-	$messageCount = Message::find()->where(['to_id' => Yii::$app->user->identity->id, 'status' => 0, 'delete_at' => 0])->count();
-	$session->set('messageCount', $messageCount);
+	$messageCount = Yii::$app->params['messageCount'];
 	?>
 	<div class="navbar-user dropdown">
 	  <a class="dropdown-toggle" href="<?= Url::toRoute(['member/index']) ?>" role="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

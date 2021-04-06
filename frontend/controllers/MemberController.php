@@ -27,6 +27,10 @@ class MemberController extends BaseController
     {
         $user = User::findOne(Yii::$app->user->identity->id);
         $profile = Profile::findOne(['user_id' => Yii::$app->user->identity->id]);
+        if (!$profile) {
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+        }
         if ($user->role_id == User::ROLE_STUDENT) {
             $profile->scenario = Profile::SCENARIO_STUDENT;
         } else {

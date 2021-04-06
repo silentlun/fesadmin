@@ -18,7 +18,7 @@ class m201218_075607_user_profile extends Migration
         
         $this->createTable(self::TBL_NAME, [
             'id' => $this->primaryKey()->unsigned(),
-            'user_id' => $this->tinyInteger()->unsigned()->notNull()->unique(),
+            'user_id' => $this->integer()->unsigned()->notNull()->unique(),
             'province' => $this->string(50)->notNull()->defaultValue(''),
             'city' => $this->string(50)->notNull()->defaultValue(''),
             'town' => $this->string(50)->notNull()->defaultValue(''),

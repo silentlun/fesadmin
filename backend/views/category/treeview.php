@@ -5,8 +5,7 @@
  * @date  2020年4月24日下午5:45:20
  * @copyright  Copyright igkcms
  */
-use backend\widgets\CategoryTree;
-use yii\base\Widget;
+use backend\widgets\CategoryWidget;
 use common\widgets\JsBlock;
 /* @var $this yii\web\View */
 $this->registerJsFile(
@@ -22,7 +21,7 @@ $this->registerJsFile(
   </div>
   <div class="modal-body ajaxmodal-content">
     <ul class="nav category-tree" id="categoryTree">
-		<?=CategoryTree::widget(['data'=>$categorys])?>
+		<?=CategoryWidget::widget(['data'=>$categorys])?>
 	</ul>
     
   </div>

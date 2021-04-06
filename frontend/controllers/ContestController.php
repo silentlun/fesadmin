@@ -8,6 +8,7 @@ use common\models\Contest;
 use common\models\ContestType;
 use common\models\User;
 use common\models\Category;
+use common\models\Profile;
 
 class ContestController extends BaseController
 {

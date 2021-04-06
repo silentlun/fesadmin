@@ -264,8 +264,8 @@ $this->params['breadcrumbs'][] = $this->title;
 						return {
 							id: item.id,
 							name: item.username,
-							school: item.profile.school,
-							college: item.profile.college,
+							school: item.profile != null ? item.profile.school : '',
+							college: item.profile != null ? item.profile.college : '',
 							selected: 0
 						};
 					});
@@ -298,8 +298,8 @@ $this->params['breadcrumbs'][] = $this->title;
 						return {
 							id: item.id,
 							name: item.username,
-							company: item.profile.company,
-							teaching: item.profile.teaching,
+							company: item.profile != null ? item.profile.company : '',
+							teaching: item.profile != null ? item.profile.teaching : '',
 							selected: 0
 						};
 					});

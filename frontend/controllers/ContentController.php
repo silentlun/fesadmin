@@ -10,12 +10,14 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use common\models\Category;
 use common\models\Page;
+use common\traits\BaseFrontendAction;
 
 /**
  * ContentController implements the CRUD actions for Content model.
  */
 class ContentController extends Controller
 {
+    use BaseFrontendAction;
 
     /**
      * Lists all Content models.

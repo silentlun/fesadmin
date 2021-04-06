@@ -51,6 +51,19 @@ return [
                 ],
             ]
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
+            'normalizer' => [
+                'class' => 'yii\web\UrlNormalizer',
+            ],
+            'rules' => [
+                '/' => 'site/index',
+                '<alias:login|logout|signup>' => 'site/<alias>',
+                
+            ],
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

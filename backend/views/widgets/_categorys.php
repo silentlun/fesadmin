@@ -9,37 +9,14 @@
 use yii\helpers\Html;
 use common\widgets\JsBlock;
 use common\models\Category;
-use common\helpers\Tree;
 use yii\helpers\Url;
+use backend\widgets\CategoryTree;
 
 $this->registerCssFile("@web/statics/plugins/jquery-treeview/css/jquery.treeview.css",['depends'=>['backend\assets\AppAsset']]);
 $this->registerJsFile("@web/statics/plugins/jquery-treeview/js/jquery.treeview.js",['depends'=>['backend\assets\AppAsset']]);
 $CAT = $categorys = [];
-$CAT = Category::getCategory();
-if (!empty($CAT)){
-    foreach ($CAT as $r){
-        if ($r['type'] == 0) {
-            $r['icon_type'] = 'add';
-            $r['add_icon'] = "";
-            //$r['add_icon'] = "<a href='".Url::toRoute('content/create')."&catid={$r['id']}'><img src='statics/plugins/jquery-treeview/images/add_content.gif' alt='创建内容'></a> ";
-        } else {
-            $r['icon_type'] = 'file';
-            $r['add_icon'] = '';
-        }
-        $r['add_class'] = 'filetree-item';
-        if ($r['id'] == Yii::$app->request->get('catid')) $r['add_class'] = 'filetree-item active';
-        $categorys[$r['id']] = $r;
-    }
-}
-if(!empty($categorys)) {
-    $liststrs = "<span class='\$icon_type'>\$add_icon<a href='".Url::toRoute('content/index')."?catid=\$id' class='\$add_class' data-pjax>\$catname</a></span>";
-    $pagestrs = "<span class='\$icon_type'>\$add_icon<a href='".Url::toRoute('page/index')."?catid=\$id' class='\$add_class' data-pjax>\$catname</a></span>";
-    $strs2 = "<span class='folder'>\$catname</span>";
-    $treeObj = new Tree($categorys);
-    $categorys = $treeObj->getViewTree(0,'category_tree',$liststrs,$strs2,$pagestrs);
-} else {
-    $categorys = Yii::t('app', 'please_add_category');
-}
+$categorys = Category::getCategory();
+
 ?>
 <style type="text/css">
 .filetree * { white-space: nowrap; }
@@ -61,7 +38,11 @@ if(!empty($categorys)) {
         <ul class="filetree  treeview">
           <li><span class="folder"><a href="<?php echo Url::toRoute('content/index');?>" data-pjax="1">全部</a></span></li>
         </ul>
-        <?php echo $categorys?>
+        <?php 
+        echo CategoryTree::widget([
+            'data' => $categorys,
+        ]);
+        ?>
         
   </div>   
         

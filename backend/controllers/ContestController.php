@@ -261,7 +261,8 @@ class ContestController extends Controller
             
         } */
         foreach ($allModels as $k => $model) {
-            $excelModels[$k]['id'] = $model['type']['subname'].$model['id'];
+            $excelModels[$k]['id'] = $model['id'];
+            $excelModels[$k]['zid'] = $model['type']['subname'].$model['id'];
             $excelModels[$k]['title'] = $model['title'];
             $excelModels[$k]['status'] = $model['status'];
             $excelModels[$k]['type'] = $model['type']['name'];
@@ -287,7 +288,8 @@ class ContestController extends Controller
             $studentModel = User::getUserAll($model['student']);
             $i = 0;
             foreach ($studentModel as $user) {
-                $student['id'] = $model['type']['subname'].$model['id'];
+                $student['id'] = $model['id'];
+                $student['zid'] = $model['type']['subname'].$model['id'];
                 $student['title'] = $model['title'];
                 $student['type'] = $model['type']['name'];
                 $student['status'] = $model['status'];
@@ -330,7 +332,8 @@ class ContestController extends Controller
             if (!$model['teacher']) continue;
             $teacherModel = User::getUserAll($model['teacher']);
             foreach ($teacherModel as $user) {
-                $teacher['id'] = $model['type']['subname'].$model['id'];
+                $teacher['id'] = $model['id'];
+                $teacher['zid'] = $model['type']['subname'].$model['id'];
                 $teacher['title'] = $model['title'];
                 $teacher['type'] = $model['type']['name'];
                 $teacher['status'] = $model['status'];
@@ -388,7 +391,7 @@ class ContestController extends Controller
             'columns' => [
                 'province',
                 'city',
-                'id',
+                'zid',
                 'title',
                 'type',
                 'status',
@@ -407,7 +410,7 @@ class ContestController extends Controller
             'headers' => [
                 'province' => '省份',
                 'city' => '城市',
-                'id' => '序号',
+                'zid' => '序号',
                 'title' => '作品名称',
                 'type' => '参赛组别',
                 'status' => '状态',

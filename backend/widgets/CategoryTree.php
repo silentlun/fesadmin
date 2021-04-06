@@ -1,63 +1,49 @@
 <?php
 /**
  * CategoryTree.php
- * @author: allen
- * @date  2020年4月24日下午2:10:00
+ * @author: silentlun
+ * @date  2021年3月29日下午3:15:53
  * @copyright  Copyright igkcms
  */
 namespace backend\widgets;
 
-
 use yii\base\Widget;
+use yii\helpers\Html;
 
 class CategoryTree extends Widget
 {
     public $data = [];
-    public $firstLevelLiTemplate = '<li><a href="javascript:;">{name}{arrow}</a>{child}</li>';
-    public $liTemplate = '<li><a href="javascript:;">{name}{arrow}</a>{list}</li>';
-    public $ulTemplate = '<ul class="nav nav-second-level category-tree">{list}</ul>';
+    
+    public $route = 'content/index';
     
     public function run()
     {
         parent::run();
-        $list = '';
-        foreach ($this->data as $id => $v){
-            if ($v['parentid'] != 0) continue;
-            $arrow = '';
-            $child = $this->getChild($id);
-            if ($child) {
-                $arrow = '<span class="fa arrow"></span>';
-                $name = "<i class=\"fa fa-folder\"></i>{$v['catname']}";
-            } else {
-                $arrow = '';
-                $name = "<label class=\"radio radio-primary\"><input type=\"radio\" name=\"catid\" value=\"{$v['id']}\" data-name=\"{$v['catname']}\"><span><i class=\"fa fa-folder\"></i>{$v['catname']}</span></label>";
-                
-            }
-            $list .= str_replace(['{arrow}', '{name}', '{child}'], [$arrow, $name, $child], $this->firstLevelLiTemplate);
-        }
-        return $list;
+        if (!$this->data) return Yii::t('app', 'please_add_category');
+        
+        return $this->getChild(0);
     }
     
     public function getChild($myid){
         $sublist = '';
-        $arrow = '';
-        $substr = '';
-        foreach ($this->data as $id => $_v){
-            if ($_v['parentid'] != $myid) continue;
+        foreach ($this->data as $id => $v){
+            if ($v['parentid'] != $myid) continue;
             $child = $this->getChild($id);
             if ($child) {
-                $arrow = '<span class="fa arrow"></span>';
-                $name = "<i class=\"fa fa-folder\"></i>{$_v['catname']}";
+                $label = Html::tag('span', $v['catname'], ['class' => 'folder']) . $child;
             } else {
-                $arrow = '';
-                $name = "<label class=\"radio radio-primary\"><input type=\"radio\" name=\"catid\" value=\"{$_v['id']}\" data-name=\"{$_v['catname']}\"><span><i class=\"fa fa-folder\"></i>{$_v['catname']}</span></label>";
+                $route = $v['type'] == 1 ? 'page/index' : $this->route;
+                $item = Html::a($v['catname'], [$route, 'catid' => $v['id']], ['class' => 'filetree-item', 'data-pjax' => 1]);
+                $labelClass = $v['type'] == 1 ? 'file' : 'add';
+                $label = Html::tag('span', $item, ['class' => $labelClass]);
             }
-            $sublist .= str_replace(['{arrow}', '{name}', '{list}'], [$arrow, $name, $child], $this->liTemplate);
+            $sublist .= Html::tag('li', $label, ['id' => $v['id']]);
         }
-        if ($sublist) {
-            $substr = str_replace('{list}', $sublist, $this->ulTemplate);
+        if (!$sublist) return false;
+        if ($myid == 0) {
+            return Html::tag('ul', $sublist, ['class' => 'filetree treeview', 'id' => 'category_tree']);
         }
+        return Html::tag('ul', $sublist);
         
-        return $substr;
     }
 }

@@ -18,12 +18,7 @@ $this->title = '修改资料';
 						<h4 class="head-title">修改资料</h4>
 					</div>
 					<div class="mt-4">
-					<div class="text-center mb-3 d-none">
-                    	<div class="user-face mb-2">
-                    		<img src="http://app.taibo.cn/phpsso_server/uploadfile/avatar/1/1/1/90x90.jpg?t=1599109205" onerror="this.src='http://app.taibo.cn/statics/images/default_user.png'">
-                    	</div>
-                    	<a href="<?=Url::toRoute(['member/avatar'])?>" class="btn btn-warning btn-sm">点击更换头像</a>
-                    </div>
+					
 					<?php $form = ActiveForm::begin(['id' => 'form-profile', 'enableClientScript' => false,]); ?>
 
                     <?= $form->field($user, 'username') ?>

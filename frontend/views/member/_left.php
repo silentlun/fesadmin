@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 
-$messageCount = Yii::$app->cache->get('messageCount');
+$messageCount = Yii::$app->params['messageCount'];
 ?>
 <div class="card border-0">
 	<div class="user-head mb-4">

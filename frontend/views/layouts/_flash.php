@@ -19,3 +19,12 @@ if (Yii::$app->session->hasFlash('error')) {
 EOF;
     $this->registerJs($str);
 }
+
+if (!Yii::$app->user->isGuest && !Yii::$app->params['profileStatus']) {
+    $str = <<<EOF
+        swal({text:'个人资料信息不完整，请先补全信息。',icon:'error'}).then((value) => {
+	window.location.href="/member/profile";
+});
+EOF;
+    $this->registerJs($str);
+}

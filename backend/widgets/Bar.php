@@ -127,7 +127,7 @@ class Bar extends Widget
                 return Html::a('<i class="fa fa-check-square-o"></i> ' . Yii::t('app', 'Verify'), Url::to(['verify']), [
                     'title' => Yii::t('app', 'Verify'),
                     
-                    'class' => 'btn btn-warning m-r-5 verify',
+                    'class' => 'btn btn-warning m-r-5 multi-verify',
                 ]);
             };
         }

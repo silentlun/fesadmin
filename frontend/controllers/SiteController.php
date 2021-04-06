@@ -14,16 +14,17 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-use common\models\Feedback;
 use common\models\Content;
 use common\models\Partner;
 use common\models\Category;
+use common\traits\BaseFrontendAction;
 
 /**
  * Site controller
  */
 class SiteController extends Controller
 {
+    use BaseFrontendAction;
     /**
      * {@inheritdoc}
      */
