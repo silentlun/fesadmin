@@ -95,7 +95,7 @@ class Bar extends Widget
             $this->buttons['delete'] = function () {
                 return Html::a('<i class="fa fa-trash-o"></i> ' . Yii::t('app', 'Delete'), Url::to(['delete']), [
                     'title' => Yii::t('app', 'Delete'),
-                    'data-pjax' => '0',
+                    'data-pjax' => '1',
                     'data-confirm' => Yii::t('app', 'Really to delete?'),
                     'class' => 'btn btn-danger m-r-5 multi-operate',
                 ]);

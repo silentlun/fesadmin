@@ -37,7 +37,7 @@ class ContestController extends BaseController
             
             //return $this->redirect(['notify']);
         } */
-        $categoryModel = Category::findOne(21);
+        $categoryModel = Category::findOne(20);
         $bannerImg = $categoryModel->image;
         
         return $this->render('index', [
@@ -55,6 +55,9 @@ class ContestController extends BaseController
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $q = Yii::$app->request->get('q');
+        if (!$q) {
+            return ['status' => 0, 'data' => []];
+        }
         $query = User::find()->select(['member.id','member.username'])
         ->with('profile')
         ->where(['member.role_id' => $role, 'member.status' => User::STATUS_ACTIVE])

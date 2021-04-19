@@ -44,7 +44,7 @@ class SignupForm extends Model
             ['username', 'trim'],
             ['username', 'required'],
             ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]+$/', 'message' => '姓名格式不正确'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => '该用户名已被使用。'],
+            //['username', 'unique', 'targetClass' => '\common\models\User', 'message' => '该用户名已被使用。'],
             ['username', 'string', 'min' => 2, 'max' => 20],
 
             ['email', 'trim'],

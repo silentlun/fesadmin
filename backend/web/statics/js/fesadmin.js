@@ -102,7 +102,7 @@ $(function() {
 		layer.closeAll('loading');
 	})
 	//多选后处理
-	$(document).on('click','.multi-operate',function(e){
+	$(container).on('click','.multi-operate',function(e){
 	    e.preventDefault();
 		var that = $(this);
 	    var url = $(this).attr('href');

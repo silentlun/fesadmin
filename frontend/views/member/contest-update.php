@@ -134,7 +134,7 @@ $this->title = '修改参赛信息';
 							<label>上传文件</label>
 							<div class="custom-file">
 								<?= Html::activeInput('file', $model, 'upfile', ['class' => 'custom-file-input']) ?>
-								<label class="custom-file-label" for="customFile">选择文件</label>
+								<label class="custom-file-label" for="customFile" data-browse="浏览">选择文件</label>
 							</div>
 							<small id="passwordHelpBlock" class="form-text text-muted">
                             </small>
@@ -162,11 +162,11 @@ $this->title = '修改参赛信息';
 			studentData: [],
 			selectedStudent: <?=Json::encode($students)?>,
 			studentKeyword:'',
-			students:<?=Json::encode(explode(',', $model->student))?>,
+			students:<?=$model->student ? Json::encode(explode(',', $model->student)) : '[]';?>,
 			teacherData: [],
 			selectedTeacher: <?=Json::encode($teachers)?>,
 			teacherKeyword:'',
-			teachers:<?=Json::encode(explode(',', $model->teacher))?>,
+			teachers:<?=$model->teacher ? Json::encode(explode(',', $model->teacher)) : '[]';?>,
 			step:1,
 			prevStatus:false,
 			nextStatus:true,
@@ -176,6 +176,10 @@ $this->title = '修改参赛信息';
 		},
 		methods: {
 			searchStudent() {
+				if(!this.studentKeyword){
+					swal({text:'请输入队员姓名查询',icon:'error',buttons: false,timer: 2000,});
+					return false;
+				}
 				var that = this;
 				layer.load(2);
 				$.getJSON("<?=Url::toRoute(['contest/search'])?>",{role:1,q:this.studentKeyword},function(res){
@@ -183,8 +187,8 @@ $this->title = '修改参赛信息';
 						return {
 							id: item.id,
 							name: item.username,
-							school: item.profile.school,
-							college: item.profile.college,
+							school: item.profile != null ? item.profile.school : '',
+							college: item.profile != null ? item.profile.college : '',
 							selected: that.filterStudent(item.id),
 						};
 					});
@@ -210,6 +214,10 @@ $this->title = '修改参赛信息';
 				
 			},
 			searchTeacher() {
+				if(!this.teacherKeyword){
+					swal({text:'请输入导师姓名查询',icon:'error',buttons: false,timer: 2000,});
+					return false;
+				}
 				var that = this;
 				layer.load(2);
 				$.getJSON("<?=Url::toRoute(['contest/search'])?>",{role:2,q:this.teacherKeyword},function(res){
@@ -217,8 +225,8 @@ $this->title = '修改参赛信息';
 						return {
 							id: item.id,
 							name: item.username,
-							company: item.profile.company,
-							teaching: item.profile.teaching,
+							company: item.profile != null ? item.profile.company : '',
+							teaching: item.profile != null ? item.profile.teaching : '',
 							selected: that.filterStudent(item.id),
 						};
 					});
@@ -245,6 +253,7 @@ $this->title = '修改参赛信息';
 					this.selectedTeacher.push(item);
 				}
 				this.initData(item.id, 0, type);
+				console.log(JSON.stringify(this.students))
 				
 			},
 			cancelUser(item, type = 0){
@@ -287,7 +296,7 @@ $this->title = '修改参赛信息';
 						}
 					}
 				}
-				console.log(JSON.stringify(this.studentData))
+				//console.log(JSON.stringify(this.studentData))
 			},
 			filterStudent(e){
 				let selected = 0;

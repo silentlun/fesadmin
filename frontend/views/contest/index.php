@@ -169,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							<label>上传文件</label>
 							<div class="custom-file">
 								<?= Html::activeInput('file', $model, 'upfile', ['class' => 'custom-file-input', 'v-on:change' => 'getFile']) ?>
-								<label class="custom-file-label" for="customFile">选择文件</label>
+								<label class="custom-file-label" for="customFile" data-browse="浏览">选择文件</label>
 							</div>
 							<small id="passwordHelpBlock" class="form-text text-muted">
                               
@@ -257,6 +257,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				}
 			},
 			searchStudent() {
+				if(!this.studentKeyword){
+					swal({text:'请输入队员姓名查询',icon:'error',buttons: false,timer: 2000,});
+					return false;
+				}
 				var that = this;
 				layer.load(2);
 				$.getJSON("<?=Url::toRoute(['search'])?>",{role:1,q:this.studentKeyword},function(res){
@@ -291,6 +295,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				
 			},
 			searchTeacher() {
+				if(!this.teacherKeyword){
+					swal({text:'请输入导师姓名查询',icon:'error',buttons: false,timer: 2000,});
+					return false;
+				}
 				var that = this;
 				layer.load(2);
 				$.getJSON("<?=Url::toRoute(['search'])?>",{role:2,q:this.teacherKeyword},function(res){
@@ -311,9 +319,17 @@ $this->params['breadcrumbs'][] = $this->title;
 			},
 			selectUser(item, type = 0) {
 				if(type == 0){
+					if(this.students.length >= 3){
+						swal({text:'队员最多选择3人！',icon:'error',buttons: false,timer: 2000,});
+						return false;
+					}
 					this.students.push(item.id);
 					this.selectedStudent.push(item);
 				}else{
+					if(this.teachers.length >= 2){
+						swal({text:'指导老师最多选择2人！',icon:'error',buttons: false,timer: 2000,});
+						return false;
+					}
 					this.teachers.push(item.id);
 					this.selectedTeacher.push(item);
 				}
