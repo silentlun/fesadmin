@@ -162,11 +162,11 @@ $this->title = '修改参赛信息';
 			studentData: [],
 			selectedStudent: <?=Json::encode($students)?>,
 			studentKeyword:'',
-			students:<?=$model->student ? Json::encode(explode(',', $model->student)) : '[]';?>,
+			students:<?=$model->student ? Json::encode(array_unique(explode(',', $model->student))) : '[]';?>,
 			teacherData: [],
 			selectedTeacher: <?=Json::encode($teachers)?>,
 			teacherKeyword:'',
-			teachers:<?=$model->teacher ? Json::encode(explode(',', $model->teacher)) : '[]';?>,
+			teachers:<?=$model->teacher ? Json::encode(array_unique(explode(',', $model->teacher))) : '[]';?>,
 			step:1,
 			prevStatus:false,
 			nextStatus:true,
@@ -196,21 +196,6 @@ $this->title = '修改参赛信息';
 					layer.closeAll('loading');
 					//console.log(JSON.stringify(that.studentData))
 		        });
-				/* let result = [
-					{id:1,fullname:'所得税',school:'北京大学',college:'计算机工程学院'},
-					{id:2,fullname:'的奋斗',school:'清华大学',college:'地理测绘工程学院'}
-				];
-				const data = result.map((item) => {
-					return {
-						id: item.id,
-						name: item.fullname,
-						school: item.school,
-						college: item.college,
-						selected: 0
-					};
-				});
-				this.studentData = data;
-				console.log(JSON.stringify(this.studentData)) */
 				
 			},
 			searchTeacher() {
@@ -227,7 +212,7 @@ $this->title = '修改参赛信息';
 							name: item.username,
 							company: item.profile != null ? item.profile.company : '',
 							teaching: item.profile != null ? item.profile.teaching : '',
-							selected: that.filterStudent(item.id),
+							selected: that.filterTeacher(item.id),
 						};
 					});
 					that.teacherData = datas;
@@ -261,18 +246,19 @@ $this->title = '修改参赛信息';
 					for(let i = 0; i < this.selectedStudent.length; i++){
 						if(this.selectedStudent[i].id == item.id){
 							this.selectedStudent.splice(i,1);
-							this.students.splice(this.students.indexOf(i),1);
+							this.students.splice(this.students.indexOf(item.id),1);
 						}
 					}
 				}else{
 					for(let i = 0; i < this.selectedTeacher.length; i++){
 						if(this.selectedTeacher[i].id == item.id){
 							this.selectedTeacher.splice(i,1);
-							this.teachers.splice(this.teachers.indexOf(i),1);
+							this.teachers.splice(this.teachers.indexOf(item.id),1);
 						}
 					}
 				}
 				this.initData(item.id, 1, type);
+				console.log(JSON.stringify(this.students))
 			},
 			initData(id, s = 0, type = 0){
 				if(type == 0){

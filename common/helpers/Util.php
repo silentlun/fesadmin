@@ -366,4 +366,9 @@ class Util
         return $thumb ? $thumb : Yii::getAlias('@web/').'statics/images/nopic.jpg';
     }
     
+    public static function toViewUrl($item, $route = 'content/view', $scheme = false)
+    {
+        return $item['islink'] == 1 ? $item['url'] : \yii\helpers\Url::toRoute([$route, 'id' => $item['id']], $scheme);
+    }
+    
 }

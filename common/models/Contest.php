@@ -93,7 +93,7 @@ class Contest extends \yii\db\ActiveRecord
     public static function getLabelStatus()
     {
         return [
-            self::STATUS_REJECT => '审核拒绝',
+            self::STATUS_REJECT => '审核未通过',
             self::STATUS_INACTIVE => '等待审核',
             self::STATUS_ACTIVE => '审核通过',
         ];
@@ -101,7 +101,7 @@ class Contest extends \yii\db\ActiveRecord
     public static function getTextStatus()
     {
         return [
-            self::STATUS_REJECT => '<span class="text-muted">审核拒绝</span>',
+            self::STATUS_REJECT => '<span class="text-muted">审核未通过</span>',
             self::STATUS_INACTIVE => '<span class="text-danger">等待审核</span>',
             self::STATUS_ACTIVE => '<span class="text-success">审核通过</span>',
         ];

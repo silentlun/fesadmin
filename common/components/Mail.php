@@ -19,7 +19,7 @@ class Mail
                 ['html' => 'orderVerifyPass'],
                 ['title' => $event->subject, 'startdate' => $event->startdate, 'enddate' => $event->enddate, 'address' => $event->address, 'tickets' => $event->users, 'orders' => $event->orders]
             )
-            ->setFrom(['support@taibo.cn' => $event->fromname])
+            ->setFrom(['contest@taibo.cn' => $event->fromname])
             ->setTo($event->orders['email'])
             ->setSubject("您申请的【{$event->subject}】已通过审核")
             ->send();
@@ -32,7 +32,7 @@ class Mail
                 ['html' => 'orderVerifyReject'],
                 ['title' => $event->subject, 'startdate' => $event->startdate, 'enddate' => $event->enddate, 'address' => $event->address, 'tickets' => $event->users, 'orders' => $event->orders]
             )
-            ->setFrom(['support@taibo.cn' => $event->fromname])
+            ->setFrom(['contest@taibo.cn' => $event->fromname])
             ->setTo($event->orders['email'])
             ->setSubject("您的活动订单已被组委会拒绝")
             ->send();
@@ -45,7 +45,7 @@ class Mail
             ['html' => 'orderVerify'],
             ['title' => $event->subject, 'startdate' => $event->startdate, 'enddate' => $event->enddate, 'address' => $event->address, 'tickets' => $event->users, 'orders' => $event->orders]
             )
-            ->setFrom(['support@taibo.cn' => $event->fromname])
+            ->setFrom(['contest@taibo.cn' => $event->fromname])
             ->setTo($event->orders['email'])
             ->setSubject("【{$event->subject}】订单确认函")
             ->send();
@@ -58,7 +58,7 @@ class Mail
                 ['html' => 'orderComplete'],
                 ['title' => $event->subject, 'startdate' => $event->startdate, 'enddate' => $event->enddate, 'address' => $event->address, 'ticket' => $user]
                 )
-                ->setFrom(['support@taibo.cn' => $event->fromname])
+                ->setFrom(['contest@taibo.cn' => $event->fromname])
             ->setTo($user['email'])
             ->setSubject("【{$event->subject}】订单确认函");
         }

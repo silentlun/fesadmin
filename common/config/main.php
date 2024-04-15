@@ -47,7 +47,7 @@ return [
                 ],
             ]
         ],
-        'mailer' => [
+        /* 'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
             // send all mails to a file by default. You have to set
@@ -66,6 +66,6 @@ return [
                 'charset'=>'UTF-8',
                 'from'=>['support@taibo.cn'=>'活动组委会']
             ],
-        ],
+        ], */
     ],
 ];

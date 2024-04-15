@@ -57,7 +57,7 @@ class User extends \common\models\User
     {
         return [
             'create' => ['username', 'email', 'password', 'mobile', 'role_id', 'group_id', 'fullname', 'sex'],
-            'update' => ['email', 'password', 'mobile', 'group_id', 'fullname', 'sex'],
+            'update' => ['username', 'email', 'password', 'mobile', 'group_id', 'fullname', 'sex'],
         ];
     }
 

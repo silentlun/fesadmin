@@ -97,8 +97,6 @@ $editorTemplate = "{label}\n<div class=\"col-sm-10\">{input}\n{error}\n<div clas
         <?= $form->field($model, 'thumb',['template' => $optionTemplate])->widget('common\widgets\webuploader\Webuploader',['config'=>['fileSingleSizeLimit'=>Yii::$app->config->site_upload_maxsize,'acceptExtensions'=>Yii::$app->config->site_upload_allowext]])->label(false) ?>
         <label>发布日期</label>
         <?= $form->field($model, 'created_at',['template' => $optionTemplate])->dateInput()->label(false) ?>
-        <label>内容页模板</label>
-        <?= $form->field($model, 'template',['template' => $optionTemplate])->dropdownList(Util::showTemplate('show'),['prompt'=>'选择模板'])->label(false);?>
         
         <label>状态</label>
         <div class="form-horizontal">

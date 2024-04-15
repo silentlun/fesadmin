@@ -9,7 +9,7 @@ $this->title = '';
 
 <div class="owl-carousel owl-theme home-banner">
     <?php foreach ($bannerModels as $r){ ?>
-    <div class="item"><a href="<?= $r['url'] ?>"><img class="img-fluid" src="<?= $r['thumb'] ?>"></a></div>
+    <div class="item"><a href="<?= $r['url'] ?>" target="_blank"><img class="img-fluid" src="<?= $r['thumb'] ?>"></a></div>
     <?php }?>
     
 </div>
@@ -34,7 +34,7 @@ $this->title = '';
     
      </div>
      <div class="col-md-6">
-     <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2001651691&verifier=c37fcf74&dpc=1"></iframe>
+     <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="https://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2001651691&verifier=c37fcf74&dpc=1"></iframe>
      </div>
   </div>
 </div>
@@ -77,7 +77,7 @@ $this->title = '';
 		<?php
 		foreach ($partnerModels as $r){
 		?>
-		<span><a href="<?=$r['url']?>"><img src="<?=$r['logo']?>"></a></span>
+		<span><a href="<?=$r['url']?>" target="_blank"><img src="<?=$r['logo']?>"></a></span>
 		<?php }?>
 	</div>
 	

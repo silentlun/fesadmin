@@ -220,6 +220,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			type:'',
 			title:'',
 			upFile:'',
+			submitStatus:true,
 		},
 		computed: {
 			student: function () {
@@ -270,28 +271,13 @@ $this->params['breadcrumbs'][] = $this->title;
 							name: item.username,
 							school: item.profile != null ? item.profile.school : '',
 							college: item.profile != null ? item.profile.college : '',
-							selected: 0
+							selected: that.filterStudent(item.id),
 						};
 					});
 					that.studentData = datas;
 					layer.closeAll('loading');
 					//console.log(JSON.stringify(that.studentData))
 		        });
-				/* let result = [
-					{id:1,fullname:'所得税',school:'北京大学',college:'计算机工程学院'},
-					{id:2,fullname:'的奋斗',school:'清华大学',college:'地理测绘工程学院'}
-				];
-				const data = result.map((item) => {
-					return {
-						id: item.id,
-						name: item.fullname,
-						school: item.school,
-						college: item.college,
-						selected: 0
-					};
-				});
-				this.studentData = data;
-				console.log(JSON.stringify(this.studentData)) */
 				
 			},
 			searchTeacher() {
@@ -308,7 +294,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							name: item.username,
 							company: item.profile != null ? item.profile.company : '',
 							teaching: item.profile != null ? item.profile.teaching : '',
-							selected: 0
+							selected: that.filterTeacher(item.id),
 						};
 					});
 					that.teacherData = datas;
@@ -334,25 +320,26 @@ $this->params['breadcrumbs'][] = $this->title;
 					this.selectedTeacher.push(item);
 				}
 				this.initData(item.id, 0, type);
-				
+				console.log(JSON.stringify(this.students))
 			},
 			cancelUser(item, type = 0){
 				if(type == 0){
 					for(let i = 0; i < this.selectedStudent.length; i++){
 						if(this.selectedStudent[i].id == item.id){
 							this.selectedStudent.splice(i,1);
-							this.students.splice(this.students.indexOf(i),1);
+							this.students.splice(this.students.indexOf(item.id),1);
 						}
 					}
 				}else{
 					for(let i = 0; i < this.selectedTeacher.length; i++){
 						if(this.selectedTeacher[i].id == item.id){
 							this.selectedTeacher.splice(i,1);
-							this.teachers.splice(this.teachers.indexOf(i),1);
+							this.teachers.splice(this.teachers.indexOf(item.id),1);
 						}
 					}
 				}
 				this.initData(item.id, 1, type);
+				console.log(JSON.stringify(this.students))
 			},
 			initData(id, s = 0, type = 0){
 				if(type == 0){
@@ -376,7 +363,25 @@ $this->params['breadcrumbs'][] = $this->title;
 						}
 					}
 				}
-				console.log(JSON.stringify(this.studentData))
+				//console.log(JSON.stringify(this.studentData))
+			},
+			filterStudent(e){
+				let selected = 0;
+				for(let i = 0; i < this.selectedStudent.length; i++){
+					if(this.selectedStudent[i].id == e){
+						selected = 1;
+					}
+				}
+				return selected;
+			},
+			filterTeacher(e){
+				let selected = 0;
+				for(let i = 0; i < this.selectedTeacher.length; i++){
+					if(this.selectedTeacher[i].id == e){
+						selected = 1;
+					}
+				}
+				return selected;
 			},
 			getFile(e){
 				this.upFile = e.target.files[0].name
@@ -386,7 +391,10 @@ $this->params['breadcrumbs'][] = $this->title;
 					swal({text:'请选择上传的报名计划书',icon:'error',buttons: false,timer: 2000,});
 					return false;
 				}
-				$('#contestform').submit();
+				if(this.submitStatus){
+					$('#contestform').submit();
+				}
+				this.submitStatus = false;
 			}
 		},
 	});

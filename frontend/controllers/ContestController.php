@@ -61,6 +61,7 @@ class ContestController extends BaseController
         $query = User::find()->select(['member.id','member.username'])
         ->with('profile')
         ->where(['member.role_id' => $role, 'member.status' => User::STATUS_ACTIVE])
+        ->andWhere(['<>', 'member.id', Yii::$app->user->identity->id])
         ->andFilterWhere(['like', 'member.username', $q])
         ->asArray()
         ->all();

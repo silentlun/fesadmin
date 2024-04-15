@@ -52,6 +52,7 @@ $this->title = '我的组队';
         [
             'attribute' => 'student',
             'format' => 'raw',
+            'headerOptions' => ['width' => '80'],
             'value' => function($model){
             return $model->students;
             },
@@ -60,6 +61,7 @@ $this->title = '我的组队';
         [
             'attribute' => 'teacher',
             'format' => 'raw',
+            'headerOptions' => ['width' => '80'],
             'value' => function($model){
             return $model->teachers;
         },
